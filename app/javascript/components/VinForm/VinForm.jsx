@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 
-import { createVehicleFromVim, fetchVehicles } from '../../state/actions';
+import { calculateFuelEfficiencyById, createVehicleFromVim, fetchVehicles } from '../../state/actions';
 import { getCreateVehicle } from '../../state/selectors';
 
 const VinForm = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [vin, setVin] = useState('');
-  const { isLoading, response, error } = useSelector(getCreateVehicle);
+  const { isLoading, error } = useSelector(getCreateVehicle);
 
   const handleOnChange = (event) => {
     setVin(event.target.value);
@@ -15,8 +17,12 @@ const VinForm = () => {
 
   const handleOnSubmit = async (event) => {
     event.preventDefault();
+    const response = await dispatch(createVehicleFromVim(vin));
 
-    dispatch(createVehicleFromVim(vin));
+    if (response?.payload?.id) {
+      const id = response?.payload?.id;
+      history.push(`/vehicle/${id}`);
+    }
   };
 
   return (

@@ -3,6 +3,13 @@ export const fetchVehicles = async () => {
   return await response.json();
 };
 
+export const fetchVehicleById = async (id) => {
+  const response = await fetch(`/api/vehicles/${id}`);
+  const json = await response.json();
+
+  return response.ok ? json : Promise.reject(json);
+};
+
 export const createVehicleFromVim = async (vehicleVin) => {
   const response = await fetch('/api/vehicles/search_by_vin', {
     method: 'post',

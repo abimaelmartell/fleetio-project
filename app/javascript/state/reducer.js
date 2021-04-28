@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { fetchVehicles, createVehicleFromVim } from './actions';
+import { fetchVehicles, createVehicleFromVim, fetchVehicleById } from './actions';
 
 const initialState = {
   vehicles: {
@@ -11,7 +11,13 @@ const initialState = {
     record: null,
     isLoading: false,
     error: null,
-  }
+  },
+
+  singleVehicle: {
+    record: {},
+    isLoading: false,
+    error: null,
+  },
 };
 
 const vehiclesReducer = createReducer(initialState, (builder) =>
@@ -21,7 +27,7 @@ const vehiclesReducer = createReducer(initialState, (builder) =>
       vehicles: {
         ...state.vehicles,
         isLoading: true,
-      }
+      },
     }))
     .addCase(fetchVehicles.fulfilled, (state, action) => ({
       ...state,
@@ -29,7 +35,7 @@ const vehiclesReducer = createReducer(initialState, (builder) =>
         ...state.vehicles,
         isLoading: false,
         records: action.payload,
-      }
+      },
     }))
 
     .addCase(createVehicleFromVim.pending, (state) => ({
@@ -38,7 +44,7 @@ const vehiclesReducer = createReducer(initialState, (builder) =>
         ...state.createVehicle,
         isLoading: true,
         error: null,
-      }
+      },
     }))
     .addCase(createVehicleFromVim.rejected, (state, action) => ({
       ...state,
@@ -46,15 +52,40 @@ const vehiclesReducer = createReducer(initialState, (builder) =>
         ...state.createVehicle,
         isLoading: false,
         error: action.payload?.error || action.payload || 'Server error, please try again later',
-      }
+      },
     }))
     .addCase(createVehicleFromVim.fulfilled, (state, action) => ({
       ...state,
       createVehicle: {
         ...state.createVehicle,
         isLoading: false,
-        response: action.payload,
-      }
+        record: action.payload,
+      },
+    }))
+
+    .addCase(fetchVehicleById.pending, (state) => ({
+      ...state,
+      singleVehicle: {
+        ...state.singleVehicle,
+        isLoading: true,
+        error: null,
+      },
+    }))
+    .addCase(fetchVehicleById.rejected, (state, action) => ({
+      ...state,
+      singleVehicle: {
+        ...state.singleVehicle,
+        isLoading: false,
+        error: action.payload?.error || action.payload || 'Server error, please try again later',
+      },
+    }))
+    .addCase(fetchVehicleById.fulfilled, (state, action) => ({
+      ...state,
+      singleVehicle: {
+        ...state.singleVehicle,
+        isLoading: false,
+        record: action.payload,
+      },
     }))
   );
 

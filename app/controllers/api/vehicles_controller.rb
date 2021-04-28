@@ -1,13 +1,27 @@
 class Api::VehiclesController < ActionController::API
+  before_action :find_vehicle, only: :show
   def index
     render json: Vehicle.all
+  end
+
+  def show
+    if @vehicle
+      render json: @vehicle
+    else
+      render_error('Vehicle not found')
+    end
   end
 
   def search_by_vin
     if find_vehicle_by_vin
       render_error('VIN already exists')
     else
-      render json: find_or_create_vehicle_by_vin
+      vehicle = find_or_create_vehicle_by_vin
+
+      # delay fuel efficiency calculation
+      vehicle.delay.calculate_efficiency!
+
+      render json: vehicle
     end
   rescue SearchVehicleService::NotFoundError
     render_error('VIN not found on Fleetio API')
@@ -34,5 +48,9 @@ private
 
   def vehicle_vin
     params[:vehicle_vin]
+  end
+
+  def find_vehicle
+    @vehicle ||= Vehicle.find_by_id(params[:id])
   end
 end

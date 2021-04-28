@@ -12,5 +12,11 @@ export const createVehicleFromVim = async (vehicleVin) => {
     body: JSON.stringify({ vehicle_vin: vehicleVin }),
   });
 
-  return await response.json();
-}
+  try {
+    const json = await response.json();
+
+    return response.ok ? json : Promise.reject(json);
+  } catch {
+    return Promise.reject('Internal Server Error');
+  }
+};

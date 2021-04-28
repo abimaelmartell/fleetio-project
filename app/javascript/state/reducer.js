@@ -8,10 +8,9 @@ const initialState = {
   },
 
   createVehicle: {
-    vin: '',
     record: null,
     isLoading: false,
-    error: '',
+    error: null,
   }
 };
 
@@ -38,6 +37,15 @@ const vehiclesReducer = createReducer(initialState, (builder) =>
       createVehicle: {
         ...state.createVehicle,
         isLoading: true,
+        error: null,
+      }
+    }))
+    .addCase(createVehicleFromVim.rejected, (state, action) => ({
+      ...state,
+      createVehicle: {
+        ...state.createVehicle,
+        isLoading: false,
+        error: action.payload?.error || action.payload || 'Server error, please try again later',
       }
     }))
     .addCase(createVehicleFromVim.fulfilled, (state, action) => ({
@@ -45,7 +53,7 @@ const vehiclesReducer = createReducer(initialState, (builder) =>
       createVehicle: {
         ...state.createVehicle,
         isLoading: false,
-        records: action.payload,
+        response: action.payload,
       }
     }))
   );

@@ -12,9 +12,11 @@ export const fetchVehicles = createAsyncThunk(
 
 export const createVehicleFromVim = createAsyncThunk(
   'vehicles/createVehicleFromVin',
-  async (vin) => {
-    const response = await api.createVehicleFromVim(vin);
-
-    return response;
+  async (vin, { rejectWithValue }) => {
+    try {
+      return await api.createVehicleFromVim(vin);
+    } catch (err) {
+      return rejectWithValue(err);
+    }
   }
 );

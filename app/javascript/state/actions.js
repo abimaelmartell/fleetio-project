@@ -31,3 +31,10 @@ export const fetchVehicleById = createAsyncThunk(
     }
   },
 );
+
+export const destroyVehicleById = createAsyncThunk(
+  'vehicles/destroyVehicleById',
+  async (id) => {
+    await api.destroyVehicleById(id);
+  },
+);

@@ -1,5 +1,5 @@
 class Api::VehiclesController < ActionController::API
-  before_action :find_vehicle, only: :show
+  before_action :find_vehicle, only: [:show, :destroy]
   def index
     render json: Vehicle.order(id: :desc).all
   end
@@ -10,6 +10,12 @@ class Api::VehiclesController < ActionController::API
     else
       render_error('Vehicle not found')
     end
+  end
+
+  def destroy
+    @vehicle.delete
+
+    head :no_content
   end
 
   def search_by_vin

@@ -47,6 +47,7 @@ a {
 .vehicle-element {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 15px 5px;
   border-radius: 5px;
   text-decoration: none;
@@ -64,6 +65,14 @@ a {
     margin-left: 10px;
     font-weight: lighter;
     font-size: 16px;
+  }
+
+  .delete-vehicle-button {
+    padding: 5px;
+
+    img {
+      width: 16px;
+    }
   }
 }
 

@@ -27,3 +27,9 @@ export const createVehicleFromVim = async (vehicleVin) => {
     return Promise.reject('Internal Server Error');
   }
 };
+
+export const destroyVehicleById = async (id) => {
+  return await fetch(`/api/vehicles/${id}`, {
+    method: 'delete',
+  });
+}

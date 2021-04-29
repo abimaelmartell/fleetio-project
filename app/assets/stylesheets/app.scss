@@ -1,5 +1,11 @@
 body {
   font-family: Roboto, sans-serif;
+  font-size: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: #323232;
 }
 
 .container {
@@ -35,5 +41,67 @@ body {
       border-top-right-radius: 10px;
       border-bottom-right-radius: 10px;
     }
+  }
+}
+
+.vehicle-element {
+  display: flex;
+  align-items: center;
+  padding: 15px 5px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #323232;
+
+  &:hover {
+    background-color: #e5e5e5;
+  }
+
+  .vehicle-title {
+    font-weight: bold;
+  }
+
+  .vehicle-vin {
+    margin-left: 10px;
+    font-weight: lighter;
+    font-size: 16px;
+  }
+}
+
+.single-vehicle-container {
+  margin-top: 50px;
+
+  .back-link {
+    display: inline-flex;
+    background-color: #f4eee8;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0 0 5px rgba(141, 141, 141, 0.4);
+    align-items: center;
+
+    .back-icon {
+      margin-right: 10px;
+      width: 20px;
+      height: 20px;;
+    }
+  }
+}
+
+.loading-container {
+  text-align: center;
+
+  .loading-icon {
+    width: 20px;
+    height: 20px;
+    animation: fa-spin 2s infinite linear;
+  }
+}
+
+@keyframes fa-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
   }
 }

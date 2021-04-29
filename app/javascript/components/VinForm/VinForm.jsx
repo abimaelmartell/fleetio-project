@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
-import { calculateFuelEfficiencyById, createVehicleFromVim, fetchVehicles } from '../../state/actions';
+import { createVehicleFromVim } from '../../state/actions';
 import { getCreateVehicle } from '../../state/selectors';
+
+import Loading from '../Loading';
 
 const VinForm = () => {
   const dispatch = useDispatch();
@@ -43,6 +45,8 @@ const VinForm = () => {
       </form>
 
       { error && <p className="error-message">There was an error while processing the request: { error }</p> }
+
+      { isLoading && <Loading /> }
     </>
   );
 };

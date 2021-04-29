@@ -1,9 +1,12 @@
 import React, { useEffect, } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { fetchVehicleById } from '../../state/actions';
 import { getSingleVehicle } from '../../state/selectors';
+
+import arrowLeftIcon from './arrow-left.svg';
 
 const VehiclesList = () => {
   const dispatch = useDispatch();
@@ -35,7 +38,13 @@ const VehiclesList = () => {
   };
 
   return (
-    <div>
+    <div className='single-vehicle-container'>
+      <Link
+        to='/'
+        className='back-link'
+      >
+        <img src={arrowLeftIcon} className='back-icon' /> Back to List
+      </Link>
       <h2>{ `${record.year} ${record.make} ${record.model}` }</h2>
       <h3>VIN: { record.vin }</h3>
       <h4>Fuel Efficiency: { fuelEfficiency() } </h4>

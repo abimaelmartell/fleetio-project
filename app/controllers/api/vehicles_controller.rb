@@ -1,7 +1,7 @@
 class Api::VehiclesController < ActionController::API
   before_action :find_vehicle, only: :show
   def index
-    render json: Vehicle.all
+    render json: Vehicle.order(id: :desc).all
   end
 
   def show

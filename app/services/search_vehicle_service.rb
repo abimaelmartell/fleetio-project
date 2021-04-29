@@ -5,10 +5,6 @@ class SearchVehicleService
   def self.search(vehicle_vin)
     response = FleetioApi::Vehicle.find_vehicles_by_vin(vehicle_vin)
 
-    unless response.success?
-      raise NotFoundError
-    end
-
     if response.count === 0
       raise NotFoundError
     elsif response.count < 1

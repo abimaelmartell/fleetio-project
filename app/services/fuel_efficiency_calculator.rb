@@ -13,7 +13,7 @@ class FuelEfficiencyCalculator
     if total_gals == 0 || total_miles == 0
       0
     else
-      total_miles / total_gals
+      (total_miles / total_gals).round(2)
     end
   end
 end

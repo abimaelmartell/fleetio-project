@@ -5,7 +5,6 @@ class FleetioApi::Request
     HTTParty.get(build_url(endpoint), {
       headers: headers,
       query: query,
-      # debug_output: Rails.logger
     })
   end
 

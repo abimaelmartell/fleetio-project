@@ -11,11 +11,11 @@ RSpec.describe SearchVehicleService do
     context 'with good data' do
       let (:vehicle_response) {[
         {
-          vin: vin,
-          model: 'Cargo',
-          make: 'Ford',
-          year: 2002,
-          id: 12312
+          'vin' => vin,
+          'model' => 'Cargo',
+          'make' => 'Ford',
+          'year' => 2002,
+          'id' => 12312
         }
       ]}
 

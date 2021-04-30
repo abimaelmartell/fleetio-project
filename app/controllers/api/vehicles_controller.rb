@@ -53,7 +53,7 @@ private
   end
 
   def vehicle_vin
-    params[:vehicle_vin]
+    params.require(:vehicle_vin)
   end
 
   def find_vehicle

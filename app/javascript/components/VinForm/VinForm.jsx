@@ -19,6 +19,9 @@ const VinForm = () => {
 
   const handleOnSubmit = async (event) => {
     event.preventDefault();
+
+    if (vin === '') return;
+
     const response = await dispatch(createVehicleFromVim(vin));
 
     if (response?.payload?.id) {
@@ -38,7 +41,7 @@ const VinForm = () => {
         />
         <button
           type="submit"
-          disabled={isLoading}
+          disabled={isLoading || vin === ''}
         >
           Search!
         </button>
